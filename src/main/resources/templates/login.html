@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!--记得导入thymeleaf依赖-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width= , initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background: #34495e;
+        }
+
+        .box {
+            width: 300px;
+            height: 400px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #191919;
+            text-align: center;
+        }
+
+        .box h1 {
+            color: white;
+            text-transform: uppercase;
+            font-family: 500;
+        }
+
+
+        .ic {
+            border: 0;
+            background: none;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            border: 2px solid #3498db;
+            padding: 14px 10px;
+            width: 200px;
+            outline: none;
+            color: white;
+            border-radius: 24px;
+            transition: 0.24s;
+        }
+
+        .ic:focus {
+
+            width: 280px;
+            border-color: #55efc4;
+        }
+
+        .lg {
+            border: 0;
+            background: none;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            border: 2px solid #55efc4;
+            padding: 14px 40px;
+            outline: none;
+            color: white;
+            border-radius: 24px;
+            transition: 0.24s;
+            cursor: pointer;
+        }
+
+        .lg:hover {
+            background: #55efc4;
+
+        }
+        #to_register{
+            color:#2ecc71;
+            font-size: 5px;
+            font-family: sans-serif;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .message_return
+        {
+            color: red;
+        }
+
+
+
+    </style>
+</head>
+
+<body>
+<!--/*@thymesVar id="msg" type=""*/-->
+<!--   这里是从controller中传入的msg ,只是为了验证Model传值成功-->
+
+
+<form class="box" action="/user/login" method="post">
+    <h1>Login</h1>
+<!--    设置P标签作为，登录信息的返回，先判断如果传回来的msg有值才会显示-->
+    <div>
+        <p class="message_return"  th:text="${msg}" th:if="${not #strings.isEmpty(msg)}">错误信息</p>
+    </div>
+    <input class="ic" type="text" name="username" placeholder="Username">
+    <input class="ic" type="password" name="password" placeholder="Password">
+    <input class="lg" type="submit" name="" value="Login">
+    <div>
+        <!--跳转到注册页面-->
+        <p class="creat_accout">
+            <span>Now to Register</span>
+        </p>
+        <a id="to_register" href="/zhu.html">Create an account</a>
+    </div>
+
+
+</form>
+
+
+</body>
+
+</html>

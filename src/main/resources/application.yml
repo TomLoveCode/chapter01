@@ -1,0 +1,34 @@
+spring:
+
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/db_test?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 配置thymeleaf，这里在templates文件夹下放html文件
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+#    禁用引擎的缓存
+    cache: false
+
+# 本来不支持put 和delete请求，若想要使用put,delete请求步骤：
+#<!--发送put,或者delete 请求修改信息-->
+#  <!--1. 在SpringMVC中配置HiddenHttpMethodFilter（SpringBoot自动配置好了）
+#  2. 页面创建一个method="post"表单
+#  3. 创建一个input标签 name="_method"，value="指定请求方式"-->
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+mybatis:
+      mapper-locations: classpath*:mapper/*.xml
+server:
+  context-path: /crud
+  port: 80
+
+
