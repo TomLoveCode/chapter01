@@ -1,5 +1,7 @@
 package com.itry.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.itry.dao.UserDao;
 import com.itry.daomain.User;
 import com.itry.service.UserService;
@@ -35,14 +37,28 @@ public class UserListController {
     @Autowired
     UserService userService;
 
-
-    //查询所有用户，并在页面中展示
+    /**
+     * 员工管理,实现分页。
+     */
     @GetMapping("/users")
-    public String list(Model model) {
-        List<User> all = userService.findAll();
-        model.addAttribute("users", all);
+    public String manageMember(@RequestParam(defaultValue = "1") int pageNum,
+                               @RequestParam(defaultValue = "10") int pageSize,
+                               Model model){
+        PageHelper.startPage(pageNum,pageSize);
+        PageInfo pageInfo=new PageInfo(userService.findAll());
+        model.addAttribute("pageInfo",pageInfo);
         return "user/list";
     }
+
+
+
+//    //查询所有用户，并在页面中展示
+//    @GetMapping("/users")
+//    public String list(Model model) {
+//        List<User> all = userService.findAll();
+//        model.addAttribute("users", all);
+//        return "user/list";
+//    }
 
     //跳转到用户添加页面。
     @GetMapping("/user_curd")
@@ -77,7 +93,7 @@ public class UserListController {
     public String updateUser(User user) {
         //看一下输出
         System.out.println(user);
-        userService.save(user);
+        userService.updateUser(user);
         return "redirect:/users";
     }
 
