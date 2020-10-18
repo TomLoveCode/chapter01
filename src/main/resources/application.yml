@@ -31,4 +31,12 @@ server:
   context-path: /crud
   port: 80
 
+  #分页pageHelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  pageSizeZero: false #pageSize=0
+
+
 

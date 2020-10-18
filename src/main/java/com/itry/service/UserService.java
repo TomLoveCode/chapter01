@@ -1,5 +1,6 @@
 package com.itry.service;
 
+import com.github.pagehelper.PageInfo;
 import com.itry.daomain.User;
 
 import java.util.List;
@@ -16,5 +17,7 @@ public interface UserService {
     User findById(Integer id);
 
     void deleteUser(Integer id);
+
+    void updateUser(User user);
 
 }

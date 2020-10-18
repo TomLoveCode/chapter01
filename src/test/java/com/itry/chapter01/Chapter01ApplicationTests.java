@@ -25,10 +25,10 @@ class Chapter01ApplicationTests {
     @Test
     void  sqlTest() throws SQLException {
 
-        User byId = userService.findById(3);
-        System.out.println(byId);
-
-
+        User user=new User(11,"hh","hh");
+        userService.updateUser(user);
+        System.out.println("改变后");
+        userService.findAll();
     }
 
 

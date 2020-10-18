@@ -22,6 +22,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         //浏览器发送 /main.html 请求来到 dashboard页面
         registry.addViewController("/main.html").setViewName("dashboard");
         registry.addViewController("/zhu.html").setViewName("register");
+
     }
 
 //注册拦截器
@@ -29,7 +30,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         InterceptorRegistration  registration=registry.addInterceptor(new LoginHandlerInterceptor());
         registration.addPathPatterns("/**");                      //所有路径都被拦截
-        registration.excludePathPatterns("/index.html","/","/user/login","/zhu.html",
+//        注意这里不要拦截验证码请求 /verify/kapcha 和注册时候的请求
+        registration.excludePathPatterns("/index.html","/","/user/login","/zhu.html","/user/register","/verify/kapcha",
                 "/**/*.css", "/**/*.js");
     }
 }

@@ -1,5 +1,7 @@
 package com.itry.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.itry.dao.UserDao;
 import com.itry.daomain.User;
 import com.itry.service.UserService;
@@ -53,6 +55,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Integer id) {
         userDao.deleteUser(id);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userDao.updateUser(user);
     }
 
 

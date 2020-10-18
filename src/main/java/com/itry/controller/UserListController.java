@@ -39,6 +39,8 @@ public class UserListController {
 
     /**
      * 员工管理,实现分页。
+     * pageNum 当前页
+     * pageSize: 每页的记录条数
      */
     @GetMapping("/users")
     public String manageMember(@RequestParam(defaultValue = "1") int pageNum,
@@ -49,16 +51,6 @@ public class UserListController {
         model.addAttribute("pageInfo",pageInfo);
         return "user/list";
     }
-
-
-
-//    //查询所有用户，并在页面中展示
-//    @GetMapping("/users")
-//    public String list(Model model) {
-//        List<User> all = userService.findAll();
-//        model.addAttribute("users", all);
-//        return "user/list";
-//    }
 
     //跳转到用户添加页面。
     @GetMapping("/user_curd")

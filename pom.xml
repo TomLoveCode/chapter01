@@ -94,6 +94,23 @@
             <scope>compile</scope>
         </dependency>
 
+
+        <!--分页插件 pagehelper  这里做分页功能的测试-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <!-- 特别注意版本问题 -->
+            <version>1.2.3</version>
+        </dependency>
+
+        <!--        验证码依赖-->
+        <!-- Google Kaptcha -->
+        <dependency>
+            <groupId>com.github.penggle</groupId>
+            <artifactId>kaptcha</artifactId>
+            <version>2.3.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>

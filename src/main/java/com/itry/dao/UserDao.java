@@ -25,6 +25,15 @@ public interface UserDao {
     @Delete("delete from login where id=#{id}")
     void deleteUser(Integer id);
 
+    @Update("update login set username=#{username}, password=#{password} where id=#{id}")
+    void updateUser(User user);
+
+
+    //测试无条件的查询分页
+
+
+
+
 
 
 
