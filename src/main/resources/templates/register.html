@@ -5,61 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <title>注册页面</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}">
-    <style>
+<!--    <style>-->
+<!--        body{-->
+<!--    background-image: url(../static/asserts/img/reg_bg_min.jpg);-->
+<!--    }-->
+<!--    </style>-->
 
-        .message_return
-        {
-            color: red;
-        }
-    </style>
     <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="../static/asserts/css/register.css" th:href="@{/asserts/css/register.css}">
 </head>
 <body>
 
-
-<form class="form-horizontal" action="/user/register"  method="post">
-
-    <div class="form-group">
-        <h1>Create your account</h1>
-        <label for="inputUsername" class="col-sm-2 control-label">Username</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputUsername" placeholder="Username" name="username">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-        <div class="col-sm-10">
-            <input type="password" class="form-control" id="inputPassword3" placeholder="Password" name="password">
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="inputPassword3" class="col-sm-2 control-label">验证码</label>
-        <div class="col-sm-10">
-            <input type="text" placeholder="请输入验证码" name="verificationCode">
-            <img id="verificationCodeImg" src="http://localhost:80/verify/kapcha" style="cursor: pointer;" title="看不清？换一张"/>
+<!--整个注册窗口-->
+<div class="box">
+    <!--注册头-->
+    <div>
+        <h1 class="title">欢迎注册</h1>
+        <!--错误信息的展示-->
+        <!--/*@thymesVar id="msg" type=""*/-->
+        <div class="fix">
+            <p class="message_return"  th:text="${msg}" th:if="${not #strings.isEmpty(msg)}">
+                错误信息
+            </p>
         </div>
 
+
+        <p id="new-reg-guide-login">
+            已有账号？点击
+            <span><a id="to_login" href="/index.html">登录</a></span>
+        </p>
     </div>
-
-
-
-
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Sign in</button>
-        </div>
+    <!--注册表单-->
+    <div>
+        <form action="/user/register" method="post">
+            <!--用户名输入-->
+            <div class="ic input_info_table">
+                <label for="username">用户名</label><input class="input_info" type="text" name="username" id="username" />
+            </div>
+            <!--密码输入-->
+            <div class="ic input_info_table">
+                <label for="password">密&nbsp;&nbsp;码</label><input class="input_info" type="password" name="password" id="password" />
+            </div>
+            <!--手机号输入-->
+            <div class="ic input_info_table">
+                <label for="tel">手机号</label><input class="input_info" type="tel" name="phone" id="tel" />
+            </div>
+            <div class="input_info_table" style="width: 360px;">
+                <!--验证码输入-->
+                <div id="yz_input">
+                    <input class="input_info" type="text" name="verificationCode" id="imput_yzm" />
+                </div>
+                <!--验证码图片-->
+                <div id="yz_img">
+                    <img id="verificationCodeImg" src="http://localhost:80/verify/kapcha" style="cursor: pointer;" title="看不清？换一张"/>
+                </div>
+            </div>
+            <input class="lg input_info_table" type="submit" value="Register" />
+        </form>
     </div>
+</div>
 
-
-</form>
-<!--错误信息的展示-->
-<!--/*@thymesVar id="msg" type=""*/-->
-<p class="message_return" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}">
-    错误信息
-</p>
 
 
 <script type="text/javascript">
@@ -69,6 +74,7 @@
             $(this).hide().attr('src', 'http://localhost:80/verify/kapcha?').fadeIn();
         });
     });
+
 </script>
 </body>
 </html>

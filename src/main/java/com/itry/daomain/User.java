@@ -2,10 +2,38 @@ package com.itry.daomain;
 
 import java.io.Serializable;
 
-public class User  implements Serializable{
+public class User implements Serializable {
     Integer id;
     String username;
     String password;
+    //新增一个电话
+    String phone;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
+
+    public User(Integer id, String username, String password, String phone) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.phone = phone;
+    }
+
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public User() {
     }
@@ -34,20 +62,6 @@ public class User  implements Serializable{
         this.password = password;
     }
 
-    public User(Integer id, String username, String password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "Users{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 
 }
 

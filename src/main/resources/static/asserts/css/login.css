@@ -1,0 +1,69 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+	background-image: url(../img/reg_bg_min.jpg);
+}
+
+.box {
+	width: 310px;
+	height: 400px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: rgba(255, 255, 255, 0.9);
+	text-align: center;
+	border-radius: 24px;
+}
+
+.box h1 {
+	color: #000000;
+	font-family: 500;
+}
+
+.login_table {
+	border: 0;
+	background: none;
+	display: block;
+	margin: 20px auto;
+	text-align: center;
+	outline: none;
+	border-radius: 24px;
+}
+
+.ic {
+	border: 2px solid #3498db;
+	padding: 14px 10px;
+	width: 200px;
+}
+
+.ic:focus {
+	transition: 0.24s;
+	width: 280px;
+	border-color: #55efc4;
+}
+
+.lg {
+	border: 2px solid #55efc4;
+	padding: 14px 40px;
+	cursor: pointer;
+}
+
+.lg:hover {
+	transition: 0.24s;
+	background: #55efc4;
+
+}
+
+#to_register {
+	color: #2ecc71;
+	font-size: 5px;
+	font-family: sans-serif;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.message_return {
+	color: red;
+}

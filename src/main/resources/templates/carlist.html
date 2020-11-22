@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars-List</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap core CSS -->
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+    <style type="text/css">
+        /* Chart.js */
+
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        .chartjs-render-monitor {
+            -webkit-animation: chartjs-render-animation 0.001s;
+            animation: chartjs-render-animation 0.001s;
+        }
+    </style>
+</head>
+<body>
+
+<!--引入topbar-->
+<div th:replace="commons/bar::topbar"></div>
+
+
+<!--引入sidebar 将activeUri定义成cars-->
+<div th:replace="commons/bar::#sidebar(activeUri='cars')"></div>
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+    <div class="card-body">
+        <h2><a class="btn btn-sm btn-success" href="park_crud" th:href="@{/cars_crud}">停车点添加</a></h2>
+
+        <!--        上面的搜索框-->
+        <form class="form-inline" style="margin-bottom: 5px" action="/find-like" method="post">
+            <div class="form-group" style="margin: 0px auto">
+                <label for="exampleInputName2" style="margin-right: 10px;font-size: 16px">车型:</label>
+                <input type="text" class="form-control" id="exampleInputName2" name="cname" placeholder="输入车型">
+                <button style="margin-left: 70px" type="submit" class="btn btn-success">查询</button>
+            </div>
+
+
+        </form>
+
+        <!--        表格-->
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>车牌号</th>
+                <th>车型</th>
+                <th>车辆状态</th>
+                <th>备注</th>
+                <th>停靠点</th>
+                <th>操作</th>
+            </tr>
+
+            </thead>
+            <tbody>
+
+            <tr th:each="item:${carsInfo.list}  ">
+                <td th:text="${item.cno}"></td>
+                <td th:text="${item.cname}"></td>
+                <td th:text="${item.state=='0'?'借出':'未借出'}"></td>
+                <td th:text="${item.remarks}"></td>
+                <td th:text="${item.parkposition}"></td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-sm btn-primary" th:href="@{/cars_curd/}+${item.cno}">编辑</a>
+                        <button th:attr="del_uri=@{/cars_curd/}+${item.cno}"
+                                class="btn btn-sm btn-danger deleteBtn">删除
+                        </button>
+                    </div>
+                </td>
+            </tr>
+
+            </tbody>
+
+        </table>
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link"><span th:text="第+${carsInfo.pageNum}+页"></span></a></li>
+            <li class="page-item"><a class="page-link" th:href="@{/cars}">首页</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{/cars(pageNum=1)}">1</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{/cars(pageNum=2)}">2</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{/cars(pageNum=${carsInfo.getNextPage()})}">Next</a>
+            </li>
+        </ul>
+
+        <!--		设置delete 请求-->
+        <form id="deleteEmpForm" method="post">
+            <input type="hidden" name="_method" value="delete"/>
+        </form>
+
+    </div>
+
+
+</main>
+
+
+<!--js-->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js"
+        th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
+<script type="text/javascript" src="asserts/js/popper.min.js"
+        th:src="@{/webjars/popper.js/1.11.1/dist/popper.js}"></script>
+<script type="text/javascript" src="asserts/js/bootstrap.min.js"
+        th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.js}"></script>
+
+<!-- Icons -->
+<script type="text/javascript" src="asserts/js/feather.min.js" th:src="@{/asserts/js/feather.min.js}"></script>
+<script>
+    feather.replace()
+</script>
+
+<script>
+    $(".deleteBtn").click(function () {
+        //删除当前员工的
+        $("#deleteEmpForm").attr("action", $(this).attr("del_uri")).submit();
+        return false;
+    });
+</script>
+
+</body>
+</html>

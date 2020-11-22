@@ -28,7 +28,6 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
             //已经登录成功，进行放行
             return true;
         }
-
     }
 
 

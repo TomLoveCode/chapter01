@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>停车点管理</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap core CSS -->
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+    <style type="text/css">
+        /* Chart.js */
+
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        .chartjs-render-monitor {
+            -webkit-animation: chartjs-render-animation 0.001s;
+            animation: chartjs-render-animation 0.001s;
+        }
+    </style>
+</head>
+<body>
+
+<!--引入topbar-->
+<div th:replace="commons/bar::topbar"></div>
+
+
+<!--引入sidebar 将activeUri定义成cars-->
+<div th:replace="commons/bar::#sidebar(activeUri='stop')"></div>
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+    <div class="card-body">
+        <!--        停车点添加-->
+        <h2><a class="btn btn-sm btn-success" href="park_crud" th:href="@{/park_crud}">停车点添加</a></h2>
+
+
+
+
+
+
+        <!--        表格-->
+        <table class="table table-hover">
+            <thead class="thead-light">
+            <tr>
+                <th>地址编号</th>
+                <th>地址</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="item:${parkInfo.list}">
+                <td th:text="${item.position}"></td>
+                <td th:text="${item.address}"></td>
+
+                <td>
+                    <div class="btn-group">
+                        <a th:href="@{/park_curd/}+${item.position}" class="btn btn-sm btn-primary">编辑</a>
+                        <button th:attr="del_uri=@{/park_curd/}+${item.position}"
+                                class="btn btn-sm btn-danger deleteBtn">删除
+                        </button>
+
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!--这里-->
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link"><span th:text="第+${parkInfo.pageNum}+页"></span></a></li>
+            <li class="page-item"><a class="page-link" th:href="@{/stopMsg}">首页</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{/stopMsg(pageNum=1)}">1</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{/stopMsg(pageNum=2)}">2</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{/stopMsg(pageNum=${parkInfo.getNextPage()})}">Next</a>
+            </li>
+        </ul>
+        <!--设置delete 请求-->
+        <form id="deleteEmpForm" method="post">
+            <input type="hidden" name="_method" value="delete"/>
+        </form>
+    </div>
+
+
+</main>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js"
+        th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
+<script type="text/javascript" src="asserts/js/popper.min.js"
+        th:src="@{/webjars/popper.js/1.11.1/dist/popper.js}"></script>
+<script type="text/javascript" src="asserts/js/bootstrap.min.js"
+        th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.js}"></script>
+
+<!-- Icons -->
+<script type="text/javascript" src="asserts/js/feather.min.js" th:src="@{/asserts/js/feather.min.js}"></script>
+<script>
+    feather.replace()
+</script>
+<script>
+    $(".deleteBtn").click(function () {
+        //删除当前员工的
+        $("#deleteEmpForm").attr("action", $(this).attr("del_uri")).submit();
+        return false;
+    });
+</script>
+</body>
+</html>

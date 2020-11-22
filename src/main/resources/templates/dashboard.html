@@ -1,10 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>dashborad</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf8"/>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+    <title>批量地址</title>
+    <style type="text/css">
+
+        #l-map {
+            height: 500px;
+            width: 100%;
+        }
+
+        #r-result {
+            width: 100%;
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        .chartjs-render-monitor {
+            -webkit-animation: chartjs-render-animation 0.001s;
+            animation: chartjs-render-animation 0.001s;
+        }
+    </style>
+    <!-- 百度地图 -->
+    <link rel="stylesheet" type="text/css" href="/js/yzmap/baidumapv2/css/DrawingManager_min.css"/>
+    <link rel="stylesheet" type="text/css" href="/js/yzmap/baidumapv2/css/baidu_map_v2.css"/>
 </head>
 <body>
-<h1>dashborad</h1>
+<!--引入topbar-->
+<div th:replace="commons/bar::topbar"></div>
+
+<!--引入sidebar 将activeUri定义成cars-->
+<div th:replace="commons/bar::#sidebar(activeUri='main.html')"></div>
+
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+    <div class="card-body">
+        <div id="l-map"></div>
+
+        <div id="r-result">
+            <input type="button" value="查看停车点信息" onclick="bdGEO()"/>
+            <div id="result"></div>
+        </div>
+    </div>
+
+</main>
+
 </body>
 </html>
+<!--<script src="jquery-1.11.2.min.js"></script>-->
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/yzmap/baidumapv2/baidumap_offline_v2_load.js"></script>
+<script type="text/javascript" src="js/yzmap/baidumapv2/tools/OfflineTransform.js"></script>
+<script type="text/javascript" src="js/yzmap/baidumapv2/tools/DrawingManager_min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7B2p6ahZbAyfGkHGqz6Aq4oVYF9FDyvH"></script>
+<script type="text/javascript">
+    var lng1 = 111.677854;
+    var lat1 = 29.054359;
+
+
+    var map = new BMap.Map("l-map"); //创建一个地图对象
+    window.map = map; //将地图对象设为全局变量地图
+    var point = new BMap.Point(lng1, lat1); //定位
+    map.centerAndZoom(point, 12); //地图初始化
+    map.enableScrollWheelZoom(); //启动滚轮缩放
+    map.addControl(new BMap.OverviewMapControl({
+        isOpen: false,
+        anchor: BMAP_ANCHOR_BOTTOM_RIGHT
+    }));
+    var styleJson = []
+    map.setMapStyle({
+        styleJson: styleJson
+    });
+    var index = 0;
+    var adds = [
+        "湖南省常德市湖南文理学院",
+        "湖南文理学院-艺术楼",
+        "湖南文理学院芙蓉学院",
+        "常德市政府办公大楼",
+        "常德欢乐水世界",
+        "常德汽车站"
+    ];
+
+    function bdGEO() {
+        if (index < adds.length) {
+            var add = adds[index];
+            var myGeo = new BMap.Geocoder();
+            if (index < adds.length) {
+                setTimeout(window.bdGEO, 400);
+            }
+            myGeo.getPoint(add, function (point) {
+                if (point) {
+                    document.getElementById("result").innerHTML += index + "、" + add + ":" + point.lng + "," + point.lat + "</br>";
+                    var address = new BMap.Point(point.lng, point.lat);
+                    addMarker(address, new BMap.Label(index + ":" + add, {offset: new BMap.Size(20, -10)}));
+                }
+            }, "常德市");
+            index++;
+        }
+    }
+
+    // 编写自定义函数,创建标注
+    function addMarker(point, label) {
+        var marker = new BMap.Marker(point);
+        map.addOverlay(marker);
+        marker.setLabel(label);
+    }
+</script>
+

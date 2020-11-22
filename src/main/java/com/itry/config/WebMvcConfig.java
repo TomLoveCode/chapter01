@@ -30,8 +30,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         InterceptorRegistration  registration=registry.addInterceptor(new LoginHandlerInterceptor());
         registration.addPathPatterns("/**");                      //所有路径都被拦截
-//        注意这里不要拦截验证码请求 /verify/kapcha 和注册时候的请求
+//        注意这里不要拦截验证码请求 /verify/kapcha 和注册时候的请求,不要拦截图片
         registration.excludePathPatterns("/index.html","/","/user/login","/zhu.html","/user/register","/verify/kapcha",
-                "/**/*.css", "/**/*.js");
+                "/**/*.css", "/**/*.js","/**/*.jpg","/park_curd");
     }
+
+
 }

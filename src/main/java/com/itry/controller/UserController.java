@@ -63,9 +63,9 @@ public class UserController {
         }
         else
         {
-            if ((user.getUsername() == null && user.getPassword()==null)|| userService.login(user) || user.getUsername() == null || user.getPassword()==null) {
+            if ((user.getUsername() == null && user.getPassword()==null)|| userService.findByName(user.getUsername())!=null || user.getUsername() == null || user.getPassword()==null) {
                 System.out.println("注册失败");
-                map.put("msg", "请重新输入用户");
+                map.put("msg", "输入为空或者用户已经存在");
                 return "register";
             } else {
                 System.out.println("注册成功");

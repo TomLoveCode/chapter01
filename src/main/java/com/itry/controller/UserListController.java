@@ -44,7 +44,7 @@ public class UserListController {
      */
     @GetMapping("/users")
     public String manageMember(@RequestParam(defaultValue = "1") int pageNum,
-                               @RequestParam(defaultValue = "10") int pageSize,
+                               @RequestParam(defaultValue = "8") int pageSize,
                                Model model){
         PageHelper.startPage(pageNum,pageSize);
         PageInfo pageInfo=new PageInfo(userService.findAll());

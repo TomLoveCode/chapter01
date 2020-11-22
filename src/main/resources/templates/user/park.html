@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard Template for Bootstrap</title>
+    <title>停车点管理</title>
     <!-- Bootstrap core CSS -->
     <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
 
@@ -50,42 +50,36 @@
 <div class="container-fluid">
     <div class="row">
         <!--引入侧边栏-->
-        <div th:replace="commons/bar::#sidebar(activeUri='users')"></div>
+        <div th:replace="commons/bar::#sidebar(activeUri='stop')"></div>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
             <!--需要区分是员工修改还是添加；-->
-            <form th:action="@{/user_curd}" method="post">
+            <form th:action="@{/park_curd}" method="post">
                 <!--发送put请求修改员工数据-- >
                 1、SpringMVC中配置HiddenHttpMethodFilter;（SpringBoot自动配置好的）
                 2、页面创建一个post表单
                 3、创建一个input项，name="_method";值就是我们指定的请求方式
                 -->
-                <input type="hidden" name="_method" value="put" th:if="${user!=null}"/>
-                <input type="hidden" name="id" th:if="${user!=null}" th:value="${user.id}">
+                <input type="hidden" name="_method" value="put" th:if="${park!=null}"/>
+                <input type="hidden" name="cno" th:if="${park!=null}" th:value="${park.position}">
                 <div class="form-group">
-                    <label>Username</label>
-                    <input name="username" type="text" class="form-control" placeholder="name"
-                           th:value="${user!=null}?${user.username}">
+                    <label>停车点编号</label>
+                    <input name="position" type="text" class="form-control" placeholder="停车点编号"
+                           th:value="${park!=null}?${park.position}">
                 </div>
 
 
                 <div class="form-group">
-                    <label>password</label>
-                    <input name="password" type="password" class="form-control" placeholder="password"
-                           th:value="${user!=null}?${user.password}">
-                </div>
-
-                <!-- 电话-->
-                <div class="form-group">
-                    <label>telephone</label>
-                    <input name="phone" type="tel" class="form-control" placeholder="telephone"
-                           th:value="${user!=null}?${user.phone}">
+                    <label>停车点</label>
+                    <input name="address" type="text" class="form-control" placeholder="停车点"
+                           th:value="${park!=null}?${park.address}">
                 </div>
 
 
-                <button type="submit" class="btn btn-primary" th:text="${user!=null}?'修改':'添加'">添加</button>
+                <button type="submit" class="btn btn-primary" th:text="${park!=null}?'修改':'添加'">添加</button>
             </form>
         </main>
+
     </div>
 </div>
 

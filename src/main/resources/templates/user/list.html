@@ -3,43 +3,43 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-	<title>User-List</title>
-	<!-- Bootstrap core CSS -->
-	<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+    <title>User-List</title>
+    <!-- Bootstrap core CSS -->
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
 
-	<!-- Custom styles for this template -->
-	<link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
-	<style type="text/css">
-		/* Chart.js */
+    <!-- Custom styles for this template -->
+    <link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+    <style type="text/css">
+        /* Chart.js */
 
-		@-webkit-keyframes chartjs-render-animation {
-			from {
-				opacity: 0.99
-			}
-			to {
-				opacity: 1
-			}
-		}
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
 
-		@keyframes chartjs-render-animation {
-			from {
-				opacity: 0.99
-			}
-			to {
-				opacity: 1
-			}
-		}
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
 
-		.chartjs-render-monitor {
-			-webkit-animation: chartjs-render-animation 0.001s;
-			animation: chartjs-render-animation 0.001s;
-		}
-	</style>
+        .chartjs-render-monitor {
+            -webkit-animation: chartjs-render-animation 0.001s;
+            animation: chartjs-render-animation 0.001s;
+        }
+    </style>
 </head>
 
 <body>
@@ -48,74 +48,81 @@
 <div th:replace="commons/bar::topbar"></div>
 
 <div class="container-fluid">
-	<div class="row">
-		<!--引入侧边栏-->
-		<div th:replace="commons/bar::#sidebar(activeUri='users')"></div>
+    <div class="row">
+        <!--引入侧边栏-->
+        <div th:replace="commons/bar::#sidebar(activeUri='users')"></div>
 
-		<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-			<h2><a class="btn btn-sm btn-success" href="user_curd" th:href="@{/user_curd}">员工添加</a></h2>
-			<div class="card-body">
-				<table class="table table-hover">
-					<thead>
-					<tr>
-						<th>ID</th>
-						<th>用户名</th>
-						<th>密码</th>
-						<th>操作</th>
-					</tr>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <h2><a class="btn btn-sm btn-success" href="user_curd" th:href="@{/user_curd}">员工添加</a></h2>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>用户名</th>
+                        <th>密码</th>
+                        <th>电话</th>
+                        <th>操作</th>
+                    </tr>
 
-					</thead>
-					<tbody>
-					<tr th:each="item:${pageInfo.list}">
-						<td th:text="${item.id}"></td>
-						<td th:text="${item.username}"></td>
-						<td th:text="${item.password}"></td>
-						<td>
-							<div class="btn-group">
-								<a class="btn btn-sm btn-primary"  th:href="@{/user_curd/}+${item.id}">编辑</a>
-								<button th:attr="del_uri=@{/user_curd/}+${item.id}" class="btn btn-sm btn-danger deleteBtn">删除</button>
-							</div>
-						</td>
-					</tr>
-					</tbody>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item:${pageInfo.list}">
+                        <td th:text="${item.id}"></td>
+                        <td th:text="${item.username}"></td>
+                        <td th:text="${item.password}"></td>
+                        <td th:text="${item.phone}"></td>
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-primary" th:href="@{/user_curd/}+${item.id}">编辑</a>
+                                <button th:attr="del_uri=@{/user_curd/}+${item.id}"
+                                        class="btn btn-sm btn-danger deleteBtn">删除
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
 
-				</table>
-				<ul class="pagination">
-					<li class="page-item"><a class="page-link"><span th:text="第+${pageInfo.pageNum}+页"></span></a></li>
-					<li class="page-item"><a class="page-link" th:href="@{/users}">首页</a></li>
-					<li class="page-item"><a class="page-link" th:href="@{/users(pageNum=1)}">1</a></li>
-					<li class="page-item"><a class="page-link" th:href="@{/users(pageNum=2)}">2</a></li>
-					<li class="page-item"><a class="page-link" th:href="@{/users(pageNum=${pageInfo.getNextPage()})}">Next</a></li>
-				</ul>
-			</div>
-		</main>
-		<form id="deleteEmpForm"  method="post">
-			<input type="hidden" name="_method" value="delete"/>
-		</form>
-	</div>
+                </table>
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link"><span th:text="第+${pageInfo.pageNum}+页"></span></a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{/users}">首页</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{/users(pageNum=1)}">1</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{/users(pageNum=2)}">2</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{/users(pageNum=3)}">3</a></li>
+                    <li class="page-item"><a class="page-link" th:href="@{/users(pageNum=${pageInfo.getNextPage()})}">Next</a>
+                    </li>
+                </ul>
+            </div>
+        </main>
+        <!--		设置delete 请求-->
+        <form id="deleteEmpForm" method="post">
+            <input type="hidden" name="_method" value="delete"/>
+        </form>
+    </div>
 </div>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js"
-		th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
+        th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
 <script type="text/javascript" src="asserts/js/popper.min.js"
-		th:src="@{/webjars/popper.js/1.11.1/dist/popper.js}"></script>
+        th:src="@{/webjars/popper.js/1.11.1/dist/popper.js}"></script>
 <script type="text/javascript" src="asserts/js/bootstrap.min.js"
-		th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.js}"></script>
+        th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.js}"></script>
 
 <!-- Icons -->
 <script type="text/javascript" src="asserts/js/feather.min.js" th:src="@{/asserts/js/feather.min.js}"></script>
 <script>
-	feather.replace()
+    feather.replace()
 </script>
 <script>
-	$(".deleteBtn").click(function () {
-		//删除当前员工的
-		$("#deleteEmpForm").attr("action", $(this).attr("del_uri")).submit();
-		return false;
-	});
+    $(".deleteBtn").click(function () {
+        //删除当前员工的
+        $("#deleteEmpForm").attr("action", $(this).attr("del_uri")).submit();
+        return false;
+    });
 </script>
 </body>
 </html>
